@@ -29,6 +29,11 @@ func main() {
 		fmt.Println("  search")
 		fmt.Println("  install")
 		fmt.Println("  remove")
+		fmt.Println("---pacman---")
+		fmt.Println("  install")
+		fmt.Println("  remove")
+		fmt.Println("  search")
+		fmt.Println("  update")
 		os.Exit(1)
 	}
 
