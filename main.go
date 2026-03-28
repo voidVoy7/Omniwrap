@@ -47,12 +47,15 @@ func main() {
 			pacman.PacmanSearchCommand(os.Args[2:])
 		case "remove":
 			pacman.PacmanRemoveCommand(os.Args[2:])
+		case "update":
+			pacman.PacmanUpdateCommand(os.Args[2:])
 		default:
 			fmt.Println("Unknown command:", os.Args[1])
 			fmt.Println("Commands:")
 			fmt.Println("  install")
 			fmt.Println("  remove")
 			fmt.Println("  search")
+			fmt.Println("  update")
 		}
 
 	case "brew":
