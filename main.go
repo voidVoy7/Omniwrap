@@ -7,6 +7,7 @@ import (
 
 	homebrew "github.com/Styx/modules/homebrew"
 	pacman "github.com/Styx/modules/pacman"
+	"github.com/Styx/modules/xbps"
 	zypper "github.com/Styx/modules/zypper"
 	"github.com/hairyhenderson/go-which"
 )
@@ -34,7 +35,23 @@ func main() {
 		fmt.Println("  remove")
 		fmt.Println("  search")
 		fmt.Println("  update")
+		fmt.Println("---xbps---")
+		fmt.Println("  install")
+		fmt.Println("  remove")
+		fmt.Println("  search")
+		fmt.Println("  update")
 		os.Exit(1)
+	}
+
+	// Super sneaky easter egg handling :P
+	cmd := os.Args[1]
+	switch cmd {
+	case "sao":
+		fmt.Println("I'd rather trust and regret than doubt and regret. - Kirigaya Kazuto 'Kirito' Sword Art Online")
+		return
+	case "konami":
+		fmt.Println("↑ ↑ ↓ ↓ ← → ← → B A")
+		return
 	}
 
 	pm, ok := PackageManagerCheck()
@@ -112,12 +129,35 @@ func main() {
 			fmt.Println("  install")
 			fmt.Println("  remove")
 		}
+
+	case "xbps-install":
+
+		switch os.Args[1] {
+		case "update":
+			xbps.XbpsUpdateCommand(os.Args[2:])
+		case "search":
+			xbps.XbpsSearchCommand(os.Args[2:])
+		case "install":
+			xbps.XbpsInstallCommand(os.Args[2:])
+		case "remove":
+			xbps.XbpsRemoveCommand(os.Args[2:])
+
+		default:
+			fmt.Println("Unknown command:", os.Args[1])
+			fmt.Println("Commands:")
+			fmt.Println("  update")
+			fmt.Println("  upgrade")
+			fmt.Println("  patch")
+			fmt.Println("  search")
+			fmt.Println("  install")
+			fmt.Println("  remove")
+		}
 	}
 
 }
 
 func PackageManagerCheck() (string, bool) {
-	supported := []string{"brew", "zypper", "pacman"}
+	supported := []string{"brew", "zypper", "pacman", "xbps-install"}
 
 	for _, candidate := range supported {
 		if which.Found(candidate) {
